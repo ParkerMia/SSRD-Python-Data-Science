@@ -2,15 +2,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from fractions import Fraction
 from itertools import combinations
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor, export_graphviz
 from sklearn.metrics import mean_squared_error
-import statsmodels.api as sm
 from scipy.stats import chi2_contingency
 import graphviz
 from matplotlib.colors import LinearSegmentedColormap
+from fractions import Fraction
 
 # --- Load Data ---
 df_extra = pd.read_csv('/content/Panic_Attack_Extra_Feature_Version.csv', encoding='unicode_escape')
