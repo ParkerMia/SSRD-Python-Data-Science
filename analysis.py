@@ -40,16 +40,20 @@ df['Sleep_Hours'] = pd.to_numeric(df['Sleep_Hours'], errors='coerce')
 # --- Reconstruct Gender, Trigger, Medical History ---
 df['Gender'] = df[['Gender_Female', 'Gender_Male', 'Gender_Non-binary']].idxmax(axis=1).map({
     'Gender_Female': 'Female', 'Gender_Male': 'Male', 'Gender_Non-binary': 'Non-binary'})
+
 df['Trigger'] = df[['Trigger_Caffeine', 'Trigger_PTSD', 'Trigger_Phobia', 'Trigger_Social_Anxiety', 'Trigger_Stress', 'Trigger_Unknown']].idxmax(axis=1).map({
     'Trigger_Caffeine': 'Caffeine', 'Trigger_PTSD': 'PTSD', 'Trigger_Phobia': 'Phobia', 
     'Trigger_Social_Anxiety': 'Social Anxiety', 'Trigger_Stress': 'Stress', 'Trigger_Unknown': 'Unknown'})
+
 df['Medical_History'] = df[['Medical_History_Anxiety', 'Medical_History_Depression', 'Medical_History_Missing', 'Medical_History_PTSD']].idxmax(axis=1).map({
     'Medical_History_Anxiety': 'Anxiety', 'Medical_History_Depression': 'Depression',
     'Medical_History_Missing': 'Missing', 'Medical_History_PTSD': 'PTSD'})
+
 df['Symptoms'] = df[['Sweating', 'Shortness_of_Breath', 'Dizziness', 'Chest_Pain', 'Trembling']].idxmax(axis=1)
 
 # --- Heart Rate & Severity ---
 df['Heart_Rate_Category'] = df['Heart_Rate'].apply(lambda x: 'Low' if x < 100 else ('Normal' if x <= 120 else 'High'))
+
 df['High_Risk_Individual'] = ((df['Sleep_Hours'] < 5) & (df['Caffeine_Intake'] > 3) & 
                                ((df['Medical_History_Anxiety'] == 1) | 
                                 (df['Medical_History_Depression'] == 1) | 
@@ -57,25 +61,31 @@ df['High_Risk_Individual'] = ((df['Sleep_Hours'] < 5) & (df['Caffeine_Intake'] >
 
 # --- Chi-Squared Tests: Symptoms ---
 df_symptoms = df[["Sweating", "Shortness_of_Breath", "Dizziness", "Chest_Pain", "Trembling"]].applymap(lambda x: 1 if x==1 else 0)
+
 results = []
+
 for s1, s2 in combinations(df_symptoms.columns, 2):
     table = pd.crosstab(df_symptoms[s1], df_symptoms[s2])
     if table.shape == (2,2):
         chi2, p, dof, expected = chi2_contingency(table)
         results.append({"Symptom 1": s1, "Symptom 2": s2, "Chi2": chi2, "p-value": p, "Degrees of Freedom": dof})
 results_df = pd.DataFrame(results)
+
 significant_results = results_df[results_df["p-value"] < 0.05]
 
 # --- Chi-Squared Tests: Symptoms vs Triggers ---
 df_triggers = df[["Trigger_Caffeine","Trigger_PTSD","Trigger_Phobia","Trigger_Social_Anxiety","Trigger_Stress","Trigger_Unknown"]].applymap(lambda x: 1 if x==1 else 0)
 results = []
+
 for symptom in df_symptoms.columns:
     for trigger in df_triggers.columns:
         table = pd.crosstab(df_symptoms[symptom], df_triggers[trigger])
         if table.shape == (2,2):
             chi2, p, dof, expected = chi2_contingency(table)
             results.append({"Symptom": symptom, "Trigger": trigger, "Chi2": chi2, "p-value": p, "Degrees of Freedom": dof})
+          
 results_df = pd.DataFrame(results)
+
 significant_results_triggers = results_df[results_df["p-value"] < 0.05]
 
 # --- Co-occurrence Heatmap: Triggers & Symptoms ---
