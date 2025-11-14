@@ -4,7 +4,7 @@
 **Libraries:** `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `statsmodels`, `graphviz`, `scipy`  
 **Dataset:** Panic Attacks — 1,200+ observations, ages 18–64, Kaggle  
 **Target Variables:** Panic Attack Frequency, Panic Attack Severity  
-**Group Project:** Individual Analysis
+**Group Project:** Completed as part of a collaborative team effort
 
 ---
 
