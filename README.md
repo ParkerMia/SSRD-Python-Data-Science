@@ -121,17 +121,3 @@
 - Explore more granular sleep, exercise, and caffeine patterns  
 - Develop intervention strategies to mitigate high-risk factors  
 
----
-
-## Tools and Methods Used
-
-- **Python / R-style Analysis:** Data cleaning, visualization, regression trees  
-- **EDA & Visualization:** `matplotlib`, `seaborn`  
-- **Statistical Testing:** `scipy.stats` chi-squared tests  
-- **Modeling:** `scikit-learn` DecisionTreeRegressor  
-- **Feature Analysis:** High-risk identification, symptom-trigger co-occurrence  
-
----
-
-**Author:** Mia Parker  
-**Language:** Python
