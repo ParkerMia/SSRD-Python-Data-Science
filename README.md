@@ -59,7 +59,7 @@
 - Individuals with anxiety history consume more caffeine (≈3 cups/day) vs. ≈2 cups/day without history  
 - Recommended sleep: 7 hours  
 
-*Visuals:*  
+**Visuals:**
 - KDE of panic attack severity by gender  
 - Count plot of sleep hours  
 - Co-occurrence heatmap of triggers & symptoms  
@@ -98,10 +98,8 @@
 - Sleep hours and caffeine intake show clear correlation patterns  
 - Helps identify individuals at higher risk based on lifestyle and medical history  
 
-*Visuals:*  
+**Visuals:**
 - Regression tree diagrams for severity and frequency  
-- Bar plots for high-severity proportions by medical history  
-- Heatmaps for symptom-trigger co-occurrence  
 
 ---
 
